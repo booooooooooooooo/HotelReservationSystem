@@ -4,8 +4,8 @@ import javax.swing.*;
 import javax.swing.event.*;
 import java.util.*;
 
-public class Start_P extends MyPanel{
-  public Start_P(Model m, View v){
+public class ManagerOrGuestPanel extends MyPanel{
+  public ManagerOrGuestPanel(Model m, View v){
     super(m, v);
     JButton manager_B = new JButton("manager");
     JButton guest_B = new JButton("guest");

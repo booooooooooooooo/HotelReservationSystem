@@ -5,19 +5,18 @@ import javax.swing.event.*;
 import java.util.*;
 
 public class Model{
-  // private ArrayList<Guest> guest_L;
-  // private ArrayList<Manager> manager_L;
-  // private ArrayLIst<Room> room_L;
+  // private ArrayList<Guest> guestData;
+  // private ArrayList<Manager> manageData;
+  // private ArrayLIst<Room> roomData;
   private View view;
+  private String filePath;
 
-  public Model(String filePath){
-    // this.guest_L = null;
-    // this.manager_L = null;
-    // this.room_L = null;
+  public Model(String fp){
     this.view = null;
-    //TODO Load date from file and initialize guest_L, manager_L and room_L
+    this.filePath = fp;
+    //TODO Load date from file to instanciate variables
   }
-
+  
   public void attach(View v){
     this.view = v;
   }

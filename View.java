@@ -8,14 +8,14 @@ public class View extends JFrame{
   private Model model;
   private final int FRAME_WIDTH = 1000;
   private final int FRAME_HEIGHT = 600;
-  private MyPanel cur_P;
+  private MyPanel currentPanel;
   public View(Model m){
     this.model = m;
 
 
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
-    this.cur_P = new Start_P(model, this);
-    add(cur_P);
+    currentPanel = new ManagerOrGuestPanel(model, this);
+    add(currentPanel);
     setLayout(new FlowLayout());
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
