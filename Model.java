@@ -135,7 +135,7 @@ public class Model {
   public ArrayList<Order> getOrderOfCurrentGuestID() {
     ArrayList<Order> result = new ArrayList<Order>();
     for (Order order : orderData) {
-      if (order.guestID == currentGuestID)
+      if (order.getGuestID() == currentGuestID)
         result.add(order);
     }
     return result;
@@ -167,9 +167,9 @@ public class Model {
     * Accessor of Room Data
     */
   public Integer[] getAvailableRoomIDByDateAndPrice(Calendar checkInDate,
-                                        Calendar checkOutDate,
-                                        int lowerPriceBound,
-                                        int higherPriceBound) {
+                                                    Calendar checkOutDate,
+                                                    int lowerPriceBound,
+                                                    int higherPriceBound) {
     // Create hashSet
     HashSet<Integer> availableRoomID = new HashSet<Integer>();
 
@@ -186,10 +186,13 @@ public class Model {
                        checkInDate, checkOutDate))
         availableRoomID.remove(order.getRoomId());
     }
-    return availableRoomID.toArray();
+    return availableRoomID.toArray(new Integer[availableRoomID.size()]);
   }
-  private boolean isOverlapped(Calendar in1, Calendar out1, Calendar in2, Calendar out2){
-    if( (in1 < in2 && out1 < in2) ||  (in1 > out2 && out1 < out2) ) return false;
-    else return true;
+  private boolean isOverlapped(Calendar in1, Calendar out1, Calendar in2,
+                               Calendar out2) {
+    if ((in1.compareTo(in2) < 0 && out1.compareTo(in2) < 0) || (in1.compareTo(out2) > 0 && out1.compareTo(out2) > 0))
+      return false;
+    else
+      return true;
   }
 }

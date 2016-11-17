@@ -20,8 +20,8 @@ public class Order implements java.io.Serializable {
   public int getRoomId() { return roomID; }
   @Override
   public String toString() {
-    return "Chenk In: " + checkInDate + "  "
-        + "Check Out: " + checkOutDate + "Guest ID: " + guestID + "  "
+    return "Chenk In: " + checkInDate.getTime() + "  "
+        + "Check Out: " + checkOutDate.getTime() + "Guest ID: " + guestID + "  "
         + "Room ID: " + roomID + "\n";
   }
 }
