@@ -7,24 +7,24 @@ import java.util.*;
 public class PanelManagerOrGuest extends PanelPrototype {
   public PanelManagerOrGuest(Model m, View v) {
     super(m, v);
-    JButton ButtonManager = new JButton("manager");
-    JButton ButtonGuest = new JButton("guest");
+    JButton buttonManager = new JButton("Manager");
+    JButton buttonGuest = new JButton("Guest");
 
-    ButtonManager.addActionListener(new ActionListener() {
+    buttonManager.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
         // TODO
       }
     });
 
-    ButtonGuest.addActionListener(new ActionListener() {
+    buttonGuest.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO
+        getView().displayPanelSign();
       }
     });
 
-    add(ButtonManager);
-    add(ButtonGuest);
+    add(buttonManager);
+    add(buttonGuest);
   }
 }

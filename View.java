@@ -12,11 +12,18 @@ public class View extends JFrame {
   public View(Model m) {
     this.model = m;
 
-    setSize(FRAME_WIDTH, FRAME_HEIGHT);
     currentPanel = new PanelManagerOrGuest(model, this);
-    add(currentPanel);
-    setLayout(new FlowLayout());
+    getContentPane().add(currentPanel);
+
+    setSize(FRAME_WIDTH, FRAME_HEIGHT);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setVisible(true);
+  }
+
+  public void displayPanelSign(){
+      getContentPane().removeAll();
+      currentPanel = new PanelSign(model, this);
+      getContentPane().add(currentPanel);
+      revalidate();
   }
 }

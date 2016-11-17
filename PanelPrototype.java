@@ -5,11 +5,15 @@ import javax.swing.event.*;
 import java.util.*;
 
 public class PanelPrototype extends JPanel {
-  protected Model model;
-  protected View view;
+  private Model model;
+  private View view;
   public PanelPrototype(Model m, View v) {
-    this.model = model;
-    this.view = view;
+    this.model = m;
+    this.view = v;
   }
+  protected Model getModel() { return model; }
+
+  protected View getView() { return view; }
+
   protected void updateDate() {}
 }
