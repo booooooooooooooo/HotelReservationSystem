@@ -20,18 +20,20 @@ public class Model{
   private ArrayList<Guest> guestData;
   private ArrayList<Room> roomData;
 
+  public String currentGuestID; //active guest
 
+  /**
+    * Constructor
+    */
   public Model(String fp){
     this.view = null;
     this.filePath = fp;
     loadDateFromFile();
-
-
-
+    currentGuestID = null;
   }
   /**
-    * Load date from file to instanciate orderDate， guestData and roomData
-    * If file does not exist, intialie orderDate and guestData empty ArrayList, initialize roomData with 20 roomes.
+    * Initialize orderDate，guestData and roomData using file data.
+    * If file does not exist, intialie orderDate and guestData as empty ArrayList, initialize roomData with 20 specific roomes.
     */
   private void loadDateFromFile(){
     File f = new File(filePath);
@@ -55,7 +57,29 @@ public class Model{
       }
     }
   }
+  /**
+    * Initalize roomData instance variable.Called by loadDateFromFile()
+    */
+  private void initializeRoomData(){
+    roomData = new ArrayList<Room>();
+    for(int i = 0; i < 10; i++){
+      roomData.add(new Room(i, 200));
+    }
+    for(int i = 10; i < 20; i++){
+      roomData.add(new Room(i, 80));
+    }
+  }
+  /**
+    * Initialize view instance variable..
+    */
+  public void attach(View v){
+    this.view = v;
+  }
 
+
+  /**
+    * Write modified hotel data to file.
+    */
   public void writeDataToFile(){
     try {
       FileOutputStream fos = new FileOutputStream(filePath);
@@ -70,27 +94,77 @@ public class Model{
     }
   }
 
-  private void initializeRoomData(){
-    roomData = new ArrayList<Room>();
-    for(int i = 0; i < 10; i++){
-      roomData.add(new Room(i, 200));
-    }
-    for(int i = 10; i < 20; i++){
-      roomData.add(new Room(i, 80));
-    }
-  }
 
-  public void attach(View v){
-    this.view = v;
-  }
 
-  public ArrayList<Order> getOrderData(){
-    return orderData;
-  }
+  /**
+    * Accessor of Guest Data
+    */
   public ArrayList<Guest> getGuestData(){
     return guestData;
   }
+  /**
+    * Accessor of Guest Data
+    */
+  public String getCurrentGuestID(){
+    return currentGuestID;
+  }
+  /**
+    * Accessor of Guest Data
+    */
+  public boolean isGuest(String guestID, String password){
+    //TODO: check is valid guest or not. If is vailid guest, update currentGuestID.
+  }
+  /**
+    * Mutator of Guest Data
+    */
+  public void setCurrentGuestID(String newGuestID){
+    this.currentGuestID = newGuestID;
+  }
+  /**
+    * Mutator of Guest Data
+    */
+  public void createGuest(String guestID, String password, String guestName){
+    //TODO
+  }
+
+
+  /**
+    * Accessor of Order Data
+    */
+  public ArrayList<Order> getOrderData(){
+    return orderData;
+  }
+  /**
+    * Accessor of Order Data
+    */
+  public ArrayList<Order> getOrderOfCurrentGuestID(){
+    //TODO
+  }
+  /**
+    * Mutator of Order Data
+    */
+  public void createOrder(Calendar checkInDate, Calendar checkOutDate, int roomID){
+    //TODO
+  }
+  /**
+    * Mutator of Order Data
+    */
+  public void deleteOrder(Order odr){
+    //TODO
+  }
+
+
+  /**
+    * Accessor of Room Data
+    */
   public ArrayList<Room> getRoomData(){
     return roomData;
   }
+  /**
+    * Accessor of Room Data
+    */
+  public int[] getAvailableRoomIDByDate(Calendar checkInDate, Calendar checkOutDate, int price){
+    //TODO
+  }
+
 }
