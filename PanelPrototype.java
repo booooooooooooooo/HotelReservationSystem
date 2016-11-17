@@ -15,5 +15,5 @@ public class PanelPrototype extends JPanel {
 
   protected View getView() { return view; }
 
-  protected void updateDate() {}
+  protected void updateData() {}
 }

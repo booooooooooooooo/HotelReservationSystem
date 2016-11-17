@@ -11,6 +11,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 
+//TODO: call drawOnUpdatedData() in every mutators
+
 public class Model {
   private View view;
   private String filePath;
@@ -104,9 +106,9 @@ public class Model {
     */
   public boolean isGuest(String guestID, String password) {
     for (int i = 0; i < guestData.size(); i++) {
-      if (guestData.get(i).getGuestID() == guestID &&
+      if (guestData.get(i).getGuestID().equals(guestID) &&
           guestData.get(i).matchPassword(password)) {
-        this.currentGuestID = guestID;
+        // this.currentGuestID = guestID;
         return true;
       }
     }

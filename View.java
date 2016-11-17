@@ -26,4 +26,21 @@ public class View extends JFrame {
       getContentPane().add(currentPanel);
       revalidate();
   }
+
+  public void displayPanelReserveOrView(){
+    getContentPane().removeAll();
+    currentPanel = new PanelReserveOrView(model, this);
+    getContentPane().add(currentPanel);
+    revalidate();
+  }
+
+  /**
+    Update all data in GUI tree in depth first order then repaint GUI tree.
+    Model mutators must call this.
+    GUI methods call this when necessary.
+    */
+  public void drawOnUpdatedData() {
+    currentPanel.updateData();
+    repaint();
+  }
 }

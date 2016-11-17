@@ -13,14 +13,17 @@ public class Guest implements java.io.Serializable {
   public String getGuestName() { return guestName; }
   public void changeGuestPassword(String npw) { this.guestPassword = npw; }
   public boolean matchPassword(String pw) {
-    if (guestPassword == pw)
+    if (guestPassword.equals(pw))
       return true;
     else
       return false;
   }
   @Override
   public String toString() {
+    // return "Guest ID: " + guestID + "  "
+    //     + "Guest Name: " + guestName + "Guest Password: " + guestPassword + "\n";
     return "Guest ID: " + guestID + "  "
-        + "Guest Name: " + guestName + "\n";
+        + "Guest Name: " + guestName  + "\n";
+
   }
 }

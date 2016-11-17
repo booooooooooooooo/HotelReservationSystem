@@ -15,7 +15,12 @@ public class PanelSign extends PanelPrototype {
     buttonSignIn.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO
+        String guestID = textFieldGuestIDSignIn.getText();
+        String guestPassword = textFieldGuestPasswordSignIn.getText();
+        if(getModel().isGuest(guestID, guestPassword)){
+          getModel().setCurrentGuestID(guestID);
+          getView().displayPanelReserveOrView();
+        }
       }
     });
 
@@ -28,14 +33,18 @@ public class PanelSign extends PanelPrototype {
     buttonSignUp.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO
+        String guestID = textFieldGuestIDSignUp.getText();
+        String guestName = textFieldGuestNameSignUp.getText();
+        String guestPassword = textFieldGuestPasswordSignUp.getText();
+        getModel().createGuest(guestID, guestPassword, guestName);
+        getView().displayPanelSign();
       }
     });
 
 
     setLayout(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();
-    
+
     c.fill = GridBagConstraints.HORIZONTAL;
     c.gridx = 0;
     c.gridy = 0;
