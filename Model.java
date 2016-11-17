@@ -109,10 +109,17 @@ public class Model{
     return currentGuestID;
   }
   /**
-    * Accessor of Guest Data
+    * Verify guest. Check is valid guest or not. If is vailid guest, update currentGuestID.
     */
   public boolean isGuest(String guestID, String password){
-    //TODO: check is valid guest or not. If is vailid guest, update currentGuestID.
+    for(int i = 0; i < guestData.size(); i++){
+      if(guestData.get(i).getGuestID() == guestID && guestData.get(i).matchPassword(password)){
+        this.currentGuestID = guestID;
+        return true;
+      }
+    }
+    return false;
+
   }
   /**
     * Mutator of Guest Data
@@ -124,7 +131,7 @@ public class Model{
     * Mutator of Guest Data
     */
   public void createGuest(String guestID, String password, String guestName){
-    //TODO
+    guestData.add( new Guest(guestID, password, guestName) );
   }
 
 
@@ -138,19 +145,28 @@ public class Model{
     * Accessor of Order Data
     */
   public ArrayList<Order> getOrderOfCurrentGuestID(){
-    //TODO
+    ArrayList<Order> result = new ArrayList<Order>();
+    for(Order order : orderData){
+      if(order.guestID == currentGuestID) result.add(order);
+    }
+    return result;
   }
   /**
-    * Mutator of Order Data
+    * Mutator of Order Data.
     */
   public void createOrder(Calendar checkInDate, Calendar checkOutDate, int roomID){
-    //TODO
+    orderData.add( new Order(checkInDate, checkOutDate, currentGuestID, roomID) );
   }
   /**
     * Mutator of Order Data
     */
   public void deleteOrder(Order odr){
-    //TODO
+    for(int i = 0; i < orderData.size(); i++){
+      if(orderData.get(i) == odr){
+        orderData.remove(i);
+        break;
+      }
+    }
   }
 
 
