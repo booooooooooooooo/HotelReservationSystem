@@ -148,7 +148,7 @@ public class PanelMakeReservation extends PanelPrototype {
     buttonDone.addActionListener(new ActionListener(){
       @Override
       public void actionPerformed(ActionEvent e) {
-        getView().displayPanelDone(reservation);
+        getView().displayPanelPrint(reservation);
       }
     });
 

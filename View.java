@@ -41,9 +41,9 @@ public class View extends JFrame {
     revalidate();
   }
 
-  public void displayPanelDone(ArrayList<Order> reservation){
+  public void displayPanelPrint(ArrayList<Order> reservation){
     getContentPane().removeAll();
-    currentPanel = new PanelDone(model, this, reservation);
+    currentPanel = new PanelPrint(model, this, reservation);
     getContentPane().add(currentPanel);
     revalidate();
   }
