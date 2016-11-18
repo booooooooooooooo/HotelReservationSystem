@@ -5,7 +5,7 @@ public class TestModel {
     Model model = new Model("./hotelData");
 
     log("\n\n=======Test Guest======");
-    // model.createGuest("bo.nov29@gmail.com", "00000000", "xiaohei");
+    model.createGuest("a", "a", "test");
     // model.setCurrentGuestID("bo.nov29@gmail.com");
     log(model.getGuestData());
     // log(model.getCurrentGuestID());

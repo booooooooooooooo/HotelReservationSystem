@@ -34,6 +34,13 @@ public class View extends JFrame {
     revalidate();
   }
 
+  public void displayPanelMakeReservation(){
+    getContentPane().removeAll();
+    currentPanel = new PanelMakeReservation(model, this);
+    getContentPane().add(currentPanel);
+    revalidate();
+  }
+
   /**
     Update all data in GUI tree in depth first order then repaint GUI tree.
     Model mutators must call this.
