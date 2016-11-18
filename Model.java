@@ -106,6 +106,11 @@ public class Model {
    * currentGuestID.
     */
   public boolean isGuest(String guestID, String password) {
+    if(guestData == null){
+      System.out.println(guestData);
+      return false;
+    }
+
     for (int i = 0; i < guestData.size(); i++) {
       if (guestData.get(i).getGuestID().equals(guestID) &&
           guestData.get(i).matchPassword(password)) {
@@ -196,7 +201,7 @@ public class Model {
     for (Order order : orderData) {
       if (isOverlapped(order.getCheckInDate(), order.getCheckOutDate(),
                        checkInDate, checkOutDate))
-        availableRoomID.remove(order.getRoomId());
+        availableRoomID.remove(order.getRoomID());
     }
     return new ArrayList<Integer>(availableRoomID);
   }

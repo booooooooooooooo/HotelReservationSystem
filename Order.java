@@ -17,11 +17,11 @@ public class Order implements java.io.Serializable {
 
   public Calendar getCheckOutDate() { return checkOutDate; }
   public String getGuestID() { return guestID; }
-  public int getRoomId() { return roomID; }
+  public int getRoomID() { return roomID; }
   @Override
   public String toString() {
-    return "Chenk In: " + checkInDate.getTime() + "  "
-        + "Check Out: " + checkOutDate.getTime() + "Guest ID: " + guestID + "  "
+    return "Chenk In: " + checkInDate.getTime() + "\n" 
+        + "Check Out: " + checkOutDate.getTime() + "\n"  + "Guest ID: " + guestID + "\n" + "  "
         + "Room ID: " + roomID + "\n";
   }
 }

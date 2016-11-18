@@ -10,17 +10,42 @@ import java.util.*;
 
 public class PanelPrint extends PanelPrototype {
 
-  private final ArrayList<Order> reservation;
+  private final Receipt receipt;
+  private final JTextArea textAreaReceipt;
 
 
   public PanelPrint(Model m, View v, ArrayList<Order> res ) {
     super(m, v);
     //Initialize instance variables
-    this.reservation = res;
-
-    //TODO
-
+    this.receipt = new Receipt(res);
+    textAreaReceipt = new JTextArea("To display Receipt");
 
 
+    JButton buttonSimple = new JButton("Simple Receipt");
+    JButton buttonComprehensive = new JButton("Comprehensive Receipt");
+
+    buttonSimple.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        // TODO
+        textAreaReceipt.setText(receipt.format(new SimpleFormatter()));
+        getView().drawOnUpdatedData();
+      }
+    });
+
+    buttonComprehensive.addActionListener(new ActionListener() {
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        //TODO
+        textAreaReceipt.setText(receipt.format(new ComprehensiveFormatter()));
+        getView().drawOnUpdatedData();
+      }
+    });
+
+
+
+    add(buttonSimple);
+    add(buttonComprehensive);
+    add(textAreaReceipt);
   }
 }
