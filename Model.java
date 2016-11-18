@@ -168,10 +168,14 @@ public class Model {
   /**
     * Accessor of Room Data
     */
-  public Integer[] getAvailableRoomIDByDateAndPrice(Calendar checkInDate,
+  public ArrayList<Integer> getAvailableRoomIDByDateAndPrice(Calendar checkInDate,
                                                     Calendar checkOutDate,
-                                                    int lowerPriceBound,
-                                                    int higherPriceBound) {
+                                                    Integer lowerPriceBound,
+                                                    Integer higherPriceBound) {
+
+    //Exclude null case
+    if(checkOutDate == null || checkOutDate == null || lowerPriceBound == null || higherPriceBound == null) return new ArrayList<Integer>();
+
     // Create hashSet
     HashSet<Integer> availableRoomID = new HashSet<Integer>();
 
@@ -188,8 +192,11 @@ public class Model {
                        checkInDate, checkOutDate))
         availableRoomID.remove(order.getRoomId());
     }
-    return availableRoomID.toArray(new Integer[availableRoomID.size()]);
+    return new ArrayList<Integer>(availableRoomID);
   }
+  /**
+    * Untility.
+    */
   private boolean isOverlapped(Calendar in1, Calendar out1, Calendar in2,
                                Calendar out2) {
     if ((in1.compareTo(in2) < 0 && out1.compareTo(in2) < 0) || (in1.compareTo(out2) > 0 && out1.compareTo(out2) > 0))

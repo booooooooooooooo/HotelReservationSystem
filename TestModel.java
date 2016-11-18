@@ -5,7 +5,7 @@ public class TestModel {
     Model model = new Model("./hotelData");
 
     log("\n\n=======Test Guest======");
-    model.createGuest("a", "a", "test");
+    // model.createGuest("a", "a", "test");
     // model.setCurrentGuestID("bo.nov29@gmail.com");
     log(model.getGuestData());
     // log(model.getCurrentGuestID());
@@ -13,7 +13,7 @@ public class TestModel {
 
     // log("\n\n=======Test Room======");
     // log(model.getRoomData());
-    // log(Arrays.toString( model.getAvailableRoomIDByDateAndPrice(new GregorianCalendar(2016, 1, 1), new GregorianCalendar(2016, 11, 20), 0, 201) ) );
+    log( model.getAvailableRoomIDByDateAndPrice(new GregorianCalendar(2016, 1, 1), new GregorianCalendar(2016, 11, 20), 0, 201) );
     //
     // log("\n\n=======Test Order======");
     // // model.createOrder(new GregorianCalendar(), new GregorianCalendar(2016, 10, 20), 1);
