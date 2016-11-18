@@ -22,6 +22,7 @@ public class Model {
 
   public String currentGuestID; // active guest
 
+
   /**
     * Constructor
     */
@@ -145,9 +146,12 @@ public class Model {
   /**
     * Mutator of Order Data.
     */
-  public void createOrder(Calendar checkInDate, Calendar checkOutDate,
+  public Order createOrder(Calendar checkInDate, Calendar checkOutDate,
                           int roomID) {
-    orderData.add(new Order(checkInDate, checkOutDate, currentGuestID, roomID));
+    //TODO: check conflit
+    Order newOrder = new Order(checkInDate, checkOutDate, currentGuestID, roomID);
+    orderData.add(newOrder);
+    return newOrder;
   }
   /**
     * Mutator of Order Data
@@ -175,6 +179,8 @@ public class Model {
 
     //Exclude null case
     if(checkOutDate == null || checkOutDate == null || lowerPriceBound == null || higherPriceBound == null) return new ArrayList<Integer>();
+
+    //TODO: check invalid time interval such as [9, 5]
 
     // Create hashSet
     HashSet<Integer> availableRoomID = new HashSet<Integer>();
