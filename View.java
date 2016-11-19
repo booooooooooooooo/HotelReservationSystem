@@ -17,7 +17,6 @@ public class View extends JFrame {
 
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    //TODO: save data to file on clicking exit
     setVisible(true);
   }
 

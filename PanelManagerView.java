@@ -22,14 +22,13 @@ public class PanelManagerView extends PanelPrototype {
 
   public PanelManagerView(Model m, View v) {
     super(m, v);
-    //Initialize instance variables
     activeDate = new GregorianCalendar();
     table = new JTable(getTableOnActiveDate(), columnNames);
     labelCalendarTitle = new JLabel(getTableTitleOnActiveDate());
     textAreaRoomInformation = new JTextArea(getRoomInformationOnActivedate());
-    JScrollPane paneRoomInformation = new JScrollPane(textAreaRoomInformation);
 
-    //Make paneCalendar
+
+
     table.setCellSelectionEnabled(true);
     table.setPreferredScrollableViewportSize(
         new Dimension(300, 100));
@@ -49,7 +48,6 @@ public class PanelManagerView extends PanelPrototype {
       }
     });
     JScrollPane paneCalendar = new JScrollPane(table);
-
     JButton buttonPrev = new JButton("<");
     buttonPrev.addActionListener(new ActionListener() {
       @Override
@@ -58,7 +56,6 @@ public class PanelManagerView extends PanelPrototype {
         getView().drawOnUpdatedData();
       }
     });
-
     JButton buttonNext = new JButton(">");
     buttonNext.addActionListener(new ActionListener() {
       @Override
@@ -67,11 +64,18 @@ public class PanelManagerView extends PanelPrototype {
         getView().drawOnUpdatedData();
       }
     });
+    JPanel panelMonthView = new JPanel();
+    panelMonthView.add(paneCalendar);
+    panelMonthView.add(labelCalendarTitle);
+    panelMonthView.add(buttonPrev);
+    panelMonthView.add(buttonNext);
+    panelMonthView.add(textAreaRoomInformation);
+
+
 
 
     final JTextArea textAreaInformationOfSelectedRoom = new JTextArea("Information of the selected room goes here.");
-
-
+    final JLabel labelCalendarTitle = new JLabel("Click the room ID you would like to view Orders");
     JTable tableRoomID = new JTable( makeTableArrayRoomID() , tableRoomIDColumnNames);
     tableRoomID.setCellSelectionEnabled(true);
     tableRoomID.setPreferredScrollableViewportSize(
@@ -83,12 +87,17 @@ public class PanelManagerView extends PanelPrototype {
         int row = target.getSelectedRow();
         int column = target.getSelectedColumn();
         String entry = (String)target.getModel().getValueAt(row, column);
-        // System.out.printf("Row: %d, Colume : %d, Entry : %s", row, column, entry);
         int roomID = Integer.parseInt(entry);
         textAreaInformationOfSelectedRoom.setText(getInformationOfRoomID(roomID));
         getView().drawOnUpdatedData();
       }
     });
+    JPanel panelRoomView = new JPanel();
+    panelRoomView.add(labelCalendarTitle);
+    panelRoomView.add(tableRoomID);
+    panelRoomView.add(textAreaInformationOfSelectedRoom);
+
+
 
 
     JButton buttonBackToMainMenu = new JButton("Back To Main Menu");
@@ -96,17 +105,19 @@ public class PanelManagerView extends PanelPrototype {
       @Override
       public void actionPerformed(ActionEvent e) {
         getView().displayPanelManagerOrGuest();
+          getModel().setCurrentGuestID(null);
       }
     });
-    add(buttonBackToMainMenu);
-    
-    add(buttonPrev);
-    add(buttonNext);
-    add(labelCalendarTitle);
-    add(paneCalendar);
-    add(paneRoomInformation);
-    add(tableRoomID);
-    add(textAreaInformationOfSelectedRoom);
+    JPanel panelButtonBackToMainMenu = new JPanel();
+    panelButtonBackToMainMenu.add(buttonBackToMainMenu);
+
+
+
+    add(panelMonthView);
+    add(panelRoomView);
+    add(panelButtonBackToMainMenu);
+
+
 
 
 
@@ -175,8 +186,8 @@ public class PanelManagerView extends PanelPrototype {
   public String getRoomInformationOnActivedate(){
 
     String available = getModel().getAvailableRoomIDByDate(activeDate).toString();
-    String reserved = getModel().getReservedRoomIDByDate(activeDate).toString();
-    return "Room information\n\n" + "Available rooms:\n" + available + "Reserved Rooms:\n" + reserved;
+    String reserved = getModel().getOrderOfDate(activeDate).toString();
+    return "Room information\n\n" + "Available rooms:\n" + available + "\nReserved Rooms:\n" + reserved;
   }
 
 
@@ -188,19 +199,18 @@ public class PanelManagerView extends PanelPrototype {
       for(int j = 0; j < 5; j++){
         contentArr[i][j] = Integer.toString(count);
         count++;
-        // System.out.printf("Row : %d, Column : %d, Value : %s\n", i, j, contentArr[i][j]);
       }
     }
     return contentArr;
   }
   public String getInformationOfRoomID(int roomID){
-    return getModel().getOrderOfRoomID(roomID).toString();
+    if(getModel().getOrderOfRoomID(roomID).isEmpty()) return "No Order for this room!";
+    else return getModel().getOrderOfRoomID(roomID).toString();
   }
 
 
   @Override
   protected void updateData(){
-    //TODO : fresh table
     table.setModel(new DefaultTableModel(getTableOnActiveDate(), columnNames));
     markActiveDateOnTable();
     labelCalendarTitle.setText(getTableTitleOnActiveDate());

@@ -30,6 +30,7 @@ public class PanelReserveOrView extends PanelPrototype {
       @Override
       public void actionPerformed(ActionEvent e) {
         getView().displayPanelManagerOrGuest();
+        getModel().setCurrentGuestID(null);
       }
     });
     add(buttonBackToMainMenu);

@@ -27,7 +27,6 @@ public class PanelMakeReservation extends PanelPrototype {
 
   public PanelMakeReservation(Model m, View v) {
     super(m, v);
-    //Initialize instance variables
     activeDate = new GregorianCalendar();
     table = new JTable(getTableOnActiveDate(), columnNames);
     labelCalendarTitle = new JLabel(getTableTitleOnActiveDate());
@@ -36,12 +35,15 @@ public class PanelMakeReservation extends PanelPrototype {
     priceRange = new ArrayList<Integer>();
     priceRange.add(null);
     priceRange.add(null);
-    // availableRoomID = new ArrayList<Integer>();
     textAreaAvailableRoom = new JTextArea((new ArrayList<Integer>()).toString());
     reservation = new ArrayList<Order>();
 
 
-    //Make paneCalendar
+    JTextArea textAreaInstruction = new JTextArea("1. Enter Price Range.\n2.Select Check In and Out Date. Caustion: Check In Date should not be ealier than today. Check Out Date should be at most 60 days later than check in date.\n3.Enter room number of your choice. It must be one of available rooms of the price and dates you entered.\n4.Press confirm button to confirm your order.\n5.Press Done button to print receipt\n6.Press More Reservation button to refresh the window.\n7.Press Back To Main Menu button to start from the beginning\n");
+    JPanel panelInstruction = new JPanel();
+    panelInstruction.add(textAreaInstruction);
+
+
     table.setCellSelectionEnabled(true);
     table.setPreferredScrollableViewportSize(
         new Dimension(300, 100));
@@ -70,7 +72,6 @@ public class PanelMakeReservation extends PanelPrototype {
         getView().drawOnUpdatedData();
       }
     });
-
     JButton buttonNext = new JButton(">");
     buttonNext.addActionListener(new ActionListener() {
       @Override
@@ -79,21 +80,23 @@ public class PanelMakeReservation extends PanelPrototype {
         getView().drawOnUpdatedData();
       }
     });
+    JPanel panelCalendar = new JPanel();
+    panelCalendar.add(paneCalendar);
+    panelCalendar.add(labelCalendarTitle);
+    panelCalendar.add(buttonPrev);
+    panelCalendar.add(buttonNext);
 
 
     JTextField textFieldLowerPriceBound = new JTextField("Price Lower Bound");
     JTextField textFieldHigherPriceBound = new JTextField("Price Higher Bound");
-
     textAreaCheckInDate = new JTextArea(checkInDate.getTime().toString());
     JButton buttonCheckInDate = new JButton("Set CheckInDate ");
     buttonCheckInDate.addActionListener(new ActionListener(){
       @Override
       public void actionPerformed(ActionEvent e) {
-
         checkInDate.set(checkInDate.YEAR, activeDate.get(activeDate.YEAR));
         checkInDate.set(checkInDate.MONTH, activeDate.get(activeDate.MONTH));
         checkInDate.set(checkInDate.DAY_OF_MONTH, activeDate.get(activeDate.DAY_OF_MONTH));
-        //TODO: get lowerPriceBound and higherPriceBound
         String l = textFieldLowerPriceBound.getText();
         String h = textFieldHigherPriceBound.getText();
         if(l.matches("^-?\\d+$")) priceRange.set(0, Integer.parseInt(l));
@@ -101,7 +104,6 @@ public class PanelMakeReservation extends PanelPrototype {
         getView().drawOnUpdatedData();
       }
     });
-
     textAreaCheckOutDate = new JTextArea(checkOutDate.getTime().toString());
     JButton buttonCheckOutDate = new JButton("Set CheckOutDate ");
     buttonCheckOutDate.addActionListener(new ActionListener(){
@@ -110,7 +112,6 @@ public class PanelMakeReservation extends PanelPrototype {
         checkOutDate.set(checkOutDate.YEAR, activeDate.get(activeDate.YEAR));
         checkOutDate.set(checkOutDate.MONTH, activeDate.get(activeDate.MONTH));
         checkOutDate.set(checkOutDate.DAY_OF_MONTH, activeDate.get(activeDate.DAY_OF_MONTH));
-          //TODO: get lowerPriceBound and higherPriceBound
         String l = textFieldLowerPriceBound.getText();
         String h = textFieldHigherPriceBound.getText();
         if(l.matches("^-?\\d+$")) priceRange.set(0, Integer.parseInt(l));
@@ -118,17 +119,20 @@ public class PanelMakeReservation extends PanelPrototype {
         getView().drawOnUpdatedData();
       }
     });
+    JPanel panelGuestOption = new JPanel();
+    panelGuestOption.add(textFieldLowerPriceBound);
+    panelGuestOption.add(textFieldHigherPriceBound);
+    panelGuestOption.add(buttonCheckInDate);
+    panelGuestOption.add(textAreaCheckInDate);
+    panelGuestOption.add(buttonCheckOutDate);
+    panelGuestOption.add(textAreaCheckOutDate);
 
 
 
 
 
 
-
-    //JTextField enter room number
     JTextField textFieldRoomIDToOrder = new JTextField("Enter Room ID to Order here!");
-
-    //Confirm button. Button lister update model mutator thus also refresh view
     JButton buttonConfirm = new JButton("Confirm ");
     buttonConfirm.addActionListener(new ActionListener(){
       @Override
@@ -141,9 +145,6 @@ public class PanelMakeReservation extends PanelPrototype {
         getView().drawOnUpdatedData();
       }
     });
-
-
-    //Done button. view.displayPanelPrint(ArrayList<Order> order)
     JButton buttonDone = new JButton("Done ");
     buttonDone.addActionListener(new ActionListener(){
       @Override
@@ -151,8 +152,6 @@ public class PanelMakeReservation extends PanelPrototype {
         getView().displayPanelPrint(reservation);
       }
     });
-
-    //more reservation button   view.displayPanelMakeReservation()
     JButton buttonMoreReservation = new JButton("More reservation? ");
     buttonMoreReservation.addActionListener(new ActionListener(){
       @Override
@@ -160,35 +159,28 @@ public class PanelMakeReservation extends PanelPrototype {
         getView().displayPanelMakeReservation();
       }
     });
-
     JButton buttonBackToMainMenu = new JButton("Back To Main Menu");
     buttonBackToMainMenu.addActionListener(new ActionListener(){
       @Override
       public void actionPerformed(ActionEvent e) {
+        getModel().setCurrentGuestID(null);
         getView().displayPanelManagerOrGuest();
       }
     });
-    add(buttonBackToMainMenu);
-
-
-    add(buttonPrev);
-    add(buttonNext);
-    add(labelCalendarTitle);
-    add(paneCalendar);
-    add(buttonCheckInDate);
-    add(textAreaCheckInDate);
-    add(buttonCheckOutDate);
-    add(textAreaCheckOutDate);
-    add(textFieldLowerPriceBound);
-    add(textFieldHigherPriceBound);
-    add(textAreaAvailableRoom);
-    add(textFieldRoomIDToOrder);
-    add(buttonConfirm);
-    add(buttonDone);
-    add(buttonMoreReservation);
+    JPanel panelReserve = new JPanel();
+    panelReserve.add(textAreaAvailableRoom);
+    panelReserve.add(textFieldRoomIDToOrder);
+    panelReserve.add(buttonConfirm);
+    panelReserve.add(buttonDone);
+    panelReserve.add(buttonMoreReservation);
+    panelReserve.add(buttonBackToMainMenu);
 
 
 
+    add(panelInstruction);
+    add(panelCalendar);
+    add(panelGuestOption);
+    add(panelReserve);
   }
 
   public String[][] getTableOnActiveDate(){

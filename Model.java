@@ -11,7 +11,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.IOException;
 
-//TODO: call drawOnUpdatedData() in every mutators
 
 public class Model {
   private View view;
@@ -53,9 +52,9 @@ public class Model {
         ois.close();
         fis.close();
       } catch (IOException e1) {
-        // TODO
+        ;
       } catch (ClassNotFoundException e2) {
-        // TODO
+        ;
       }
     }
   }
@@ -89,7 +88,7 @@ public class Model {
       oos.close();
       fos.close();
     } catch (IOException e) {
-      // TODO
+      ;
     }
   }
 
@@ -107,7 +106,6 @@ public class Model {
     */
   public boolean isGuest(String guestID, String password) {
     if(guestData == null){
-      System.out.println(guestData);
       return false;
     }
 
@@ -131,6 +129,7 @@ public class Model {
     */
   public void createGuest(String guestID, String password, String guestName) {
     guestData.add(new Guest(guestID, password, guestName));
+    view.drawOnUpdatedData();
   }
 
   /**
@@ -158,6 +157,18 @@ public class Model {
     }
     return result;
   }
+  /**
+    * Accessor of Order Data
+    */
+  public ArrayList<Order> getOrderOfDate(Calendar date){
+    if(date == null) return new ArrayList<Order>();
+    ArrayList<Order> result = new ArrayList<Order>();
+    for (Order order : orderData) {
+      if (order.getCheckInDate().compareTo(date) <= 0 && order.getCheckOutDate().compareTo(date) >= 0)
+        result.add(order);
+    }
+    return result;
+  }
 
   /**
     * Mutator of Order Data.
@@ -167,6 +178,7 @@ public class Model {
     //TODO: check conflit
     Order newOrder = new Order(checkInDate, checkOutDate, currentGuestID, roomID);
     orderData.add(newOrder);
+    view.drawOnUpdatedData();
     return newOrder;
   }
   /**
@@ -232,7 +244,11 @@ public class Model {
     //Exclude null case
     if(checkOutDate == null || checkOutDate == null || lowerPriceBound == null || higherPriceBound == null) return new ArrayList<Integer>();
 
-    //TODO: check invalid time interval such as [9, 5]
+    if(checkInDate.compareTo(new GregorianCalendar()) < 0) return new ArrayList<Integer>();
+    
+    long difference = checkOutDate.getTimeInMillis() - checkInDate.getTimeInMillis();
+    int days = (int) (difference/ (1000*60*60*24));
+    if(days < 0 || days > 60) return new ArrayList<Integer>();
 
     // Create hashSet
     HashSet<Integer> availableRoomID = new HashSet<Integer>();
@@ -257,6 +273,7 @@ public class Model {
     */
   private boolean isOverlapped(Calendar in1, Calendar out1, Calendar in2,
                                Calendar out2) {
+    //TODO: check interval is valid
     if ((in1.compareTo(in2) < 0 && out1.compareTo(in2) < 0) || (in1.compareTo(out2) > 0 && out1.compareTo(out2) > 0))
       return false;
     else
