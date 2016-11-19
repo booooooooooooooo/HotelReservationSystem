@@ -13,7 +13,7 @@ public class PanelManagerOrGuest extends PanelPrototype {
     buttonManager.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        // TODO
+        getView().displayPanelManagerDoWhat();
       }
     });
 

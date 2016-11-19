@@ -17,6 +17,7 @@ public class View extends JFrame {
 
     setSize(FRAME_WIDTH, FRAME_HEIGHT);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    //TODO: save data to file on clicking exit
     setVisible(true);
   }
 
@@ -50,6 +51,18 @@ public class View extends JFrame {
   public void displayPanelViewOrCancel(){
     getContentPane().removeAll();
     currentPanel = new PanelViewOrCancel(model, this);
+    getContentPane().add(currentPanel);
+    revalidate();
+  }
+  public void displayPanelManagerDoWhat(){
+    getContentPane().removeAll();
+    currentPanel = new PanelManagerDoWhat(model, this);
+    getContentPane().add(currentPanel);
+    revalidate();
+  }
+  public void displayPanelManagerView(){
+    getContentPane().removeAll();
+    currentPanel = new PanelManagerView(model, this);
     getContentPane().add(currentPanel);
     revalidate();
   }
