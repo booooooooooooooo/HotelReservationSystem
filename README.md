@@ -2,6 +2,7 @@
 
 # TO RUN
 javac *.java
+
 java ReservationSystem
 
 #Main Idea
