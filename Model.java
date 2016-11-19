@@ -148,6 +148,16 @@ public class Model {
     }
     return result;
   }
+  /**
+    * Accessor of Order Data
+    */
+  public ArrayList<Order> getOrderOfRoomID(int roomID){
+    ArrayList<Order> result = new ArrayList<Order>();
+    for(Order order : orderData){
+      if(order.getRoomID() == roomID) result.add(order);
+    }
+    return result;
+  }
 
   /**
     * Mutator of Order Data.
@@ -180,11 +190,14 @@ public class Model {
     * Accessor of roomData
     */
   public ArrayList<Integer> getAvailableRoomIDByDate(Calendar date) {
+
+    if(date == null) return new ArrayList<Integer>();
+
     HashSet<Integer> availableRoomID = new HashSet<Integer>();
 
     // Put all rooms that satisfy price range into hashSet
     for (Room room : roomData) {
-      availableRoomID.add(room.getRoomId());
+      availableRoomID.add(room.getRoomID());
     }
 
     // Delete the rooms that are occupied in target date interval
@@ -198,6 +211,8 @@ public class Model {
     * Accessor of roomData
     */
   public ArrayList<Integer> getReservedRoomIDByDate(Calendar date) {
+    if(date == null) return new ArrayList<Integer>();
+
     HashSet<Integer> reservedRoomID = new HashSet<Integer>();
     for (Order order : orderData) {
       reservedRoomID.add(order.getRoomID());
@@ -226,7 +241,7 @@ public class Model {
     for (Room room : roomData) {
       if (lowerPriceBound <= room.getRoomPrice() &&
           room.getRoomPrice() <= higherPriceBound)
-        availableRoomID.add(room.getRoomId());
+        availableRoomID.add(room.getRoomID());
     }
 
     // Delete the rooms that are occupied in target date interval

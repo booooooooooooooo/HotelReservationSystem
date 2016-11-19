@@ -21,6 +21,13 @@ public class View extends JFrame {
     setVisible(true);
   }
 
+  public void displayPanelManagerOrGuest(){
+    getContentPane().removeAll();
+    currentPanel = new PanelManagerOrGuest(model, this);
+    getContentPane().add(currentPanel);
+    revalidate();
+  }
+
   public void displayPanelSign(){
       getContentPane().removeAll();
       currentPanel = new PanelSign(model, this);

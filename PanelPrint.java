@@ -42,7 +42,14 @@ public class PanelPrint extends PanelPrototype {
       }
     });
 
-
+    JButton buttonBackToMainMenu = new JButton("Back To Main Menu");
+    buttonBackToMainMenu.addActionListener(new ActionListener(){
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        getView().displayPanelManagerOrGuest();
+      }
+    });
+    add(buttonBackToMainMenu);
 
     add(buttonSimple);
     add(buttonComprehensive);

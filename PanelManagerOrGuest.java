@@ -24,6 +24,7 @@ public class PanelManagerOrGuest extends PanelPrototype {
       }
     });
 
+
     add(buttonManager);
     add(buttonGuest);
   }

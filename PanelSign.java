@@ -41,6 +41,14 @@ public class PanelSign extends PanelPrototype {
       }
     });
 
+    JButton buttonBackToMainMenu = new JButton("Back To Main Menu");
+    buttonBackToMainMenu.addActionListener(new ActionListener(){
+      @Override
+      public void actionPerformed(ActionEvent e) {
+        getView().displayPanelManagerOrGuest();
+      }
+    });
+    add(buttonBackToMainMenu);
 
     setLayout(new GridBagLayout());
     GridBagConstraints c = new GridBagConstraints();

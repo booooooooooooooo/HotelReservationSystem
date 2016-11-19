@@ -7,7 +7,7 @@ public class Room implements java.io.Serializable {
     this.roomID = id;
     this.roomPrice = price;
   }
-  public int getRoomId() { return roomID; }
+  public int getRoomID() { return roomID; }
   public int getRoomPrice() { return roomPrice; }
   @Override
   public String toString() {
