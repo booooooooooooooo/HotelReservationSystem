@@ -47,6 +47,12 @@ public class View extends JFrame {
     getContentPane().add(currentPanel);
     revalidate();
   }
+  public void displayPanelViewOrCancel(){
+    getContentPane().removeAll();
+    currentPanel = new PanelViewOrCancel(model, this);
+    getContentPane().add(currentPanel);
+    revalidate();
+  }
 
   /**
     Update all data in GUI tree in depth first order then repaint GUI tree.

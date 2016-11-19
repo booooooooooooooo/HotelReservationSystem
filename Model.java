@@ -168,6 +168,7 @@ public class Model {
         break;
       }
     }
+    view.drawOnUpdatedData();
   }
 
   /**

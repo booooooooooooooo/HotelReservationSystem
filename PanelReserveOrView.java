@@ -21,7 +21,7 @@ public class PanelReserveOrView extends PanelPrototype {
     buttonView.addActionListener(new ActionListener() {
       @Override
       public void actionPerformed(ActionEvent e) {
-        //TODO
+        getView().displayPanelViewOrCancel();
       }
     });
 
